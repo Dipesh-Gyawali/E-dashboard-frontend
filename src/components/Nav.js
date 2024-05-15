@@ -2,6 +2,8 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 const Nav = () => {
   const auth = localStorage.getItem("user");
+  console.log(auth, "aaaaaaaaaaaaa");
+
   const navigate = useNavigate();
   const logout = () => {
     localStorage.clear();
@@ -31,8 +33,7 @@ const Nav = () => {
           <li>
             {" "}
             <Link onClick={logout} to="/signup">
-              Logout
-              {/* ({ JSON.parse(auth).name}) */}
+              Logout ({JSON.parse(auth).name})
             </Link>
           </li>
         </ul>
