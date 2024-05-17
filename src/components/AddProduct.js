@@ -6,8 +6,14 @@ const AddProduct = () => {
   const [price, setPrice] = React.useState("");
   const [category, setCategory] = React.useState("");
   const [company, setCompnay] = React.useState("");
+  const [error, setError] = React.useState(false);
 
   const addProduct = async () => {
+    if (!name || !price || !company || !category) {
+      setError(true);
+      return false;
+    }
+
     const userId = JSON.parse(localStorage.getItem("user"))._id;
     let result = await fetch("http://localhost:5000/add-product", {
       method: "post",
@@ -32,7 +38,9 @@ const AddProduct = () => {
           setName(e.target.value);
         }}
       />
-      {/* {error && !name && <span className='invalid-input'>Enter valid name</span>} */}
+      {error && !name && (
+        <span className="invalid-input">Enter valid name</span>
+      )}
 
       <input
         type="text"
@@ -43,7 +51,9 @@ const AddProduct = () => {
           setPrice(e.target.value);
         }}
       />
-      {/* {error && !price && <span className='invalid-input'>Enter valid price</span>} */}
+      {error && !price && (
+        <span className="invalid-input">Enter valid price</span>
+      )}
 
       <input
         type="text"
@@ -54,7 +64,9 @@ const AddProduct = () => {
           setCategory(e.target.value);
         }}
       />
-      {/* {error && !category && <span className='invalid-input'>Enter valid category</span>}  */}
+      {error && !category && (
+        <span className="invalid-input">Enter valid category</span>
+      )}
 
       <input
         type="text"
@@ -65,7 +77,9 @@ const AddProduct = () => {
           setCompnay(e.target.value);
         }}
       />
-      {/* {error && !company && <span className='invalid-input'>Enter valid company</span>} */}
+      {error && !company && (
+        <span className="invalid-input">Enter valid company</span>
+      )}
 
       <button onClick={addProduct} className="appButton">
         Add Product
