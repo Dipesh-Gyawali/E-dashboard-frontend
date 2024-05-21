@@ -20,6 +20,17 @@ export const ProductList = () => {
     console.log(result, "rrrrrrrrrrrrr");
   };
 
+  const deleteProduct = async (id) => {
+    console.warn(id);
+    let result = await fetch(`http://localhost:5000/product/${id}`, {
+      method: "Delete",
+    });
+    result = await result.json();
+    if (result) {
+      getProducts();
+    }
+  };
+
   return (
     <div className="product-list">
       <h3>Product List</h3>
@@ -44,7 +55,7 @@ export const ProductList = () => {
             <li>{item.price}</li>
             <li>{item.category}</li>
             <li>
-              {/* <button onClick={() => deleteProduct(item._id)}>Delete</button> */}
+              <button onClick={() => deleteProduct(item._id)}>Delete</button>
               {/* <Link to={"/update/" + item._id}>Update </Link> */}
             </li>
           </ul>
@@ -55,17 +66,6 @@ export const ProductList = () => {
     </div>
   );
 };
-
-//     const deleteProduct = async (id) => {
-//         console.warn(id)
-//         let result = await fetch(`http://localhost:5000/product/${id}`, {
-//             method: "Delete"
-//         });
-//         result = await result.json();
-//         if (result) {
-//             getProducts();
-//         }
-//     }
 
 //     const searchHandle = async (event)=>{
 //         let key = event.target.value;
