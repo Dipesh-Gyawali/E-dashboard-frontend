@@ -17,26 +17,27 @@ const UpdateProduct = () => {
     console.warn(params);
     let result = await fetch(`http://localhost:5000/product/${params.id}`);
     result = await result.json();
+    console.log(result, "ssssssssssssss");
     setName(result.name);
     setPrice(result.price);
     setCategory(result.category);
     setCompnay(result.company);
   };
 
-  const updateProduct = async () => {
-    console.warn(name, price, category, company);
-    let result = await fetch(`http://localhost:5000/product/${params.id}`, {
-      method: "Put",
-      body: JSON.stringify({ name, price, category, company }),
-      headers: {
-        "Content-Type": "Application/json",
-      },
-    });
-    result = await result.json();
-    if (result) {
-      navigate("/");
-    }
-  };
+  // const updateProduct = async () => {
+  //   console.warn(name, price, category, company);
+  //   let result = await fetch(`http://localhost:5000/product/${params.id}`, {
+  //     method: "Put",
+  //     body: JSON.stringify({ name, price, category, company }),
+  //     headers: {
+  //       "Content-Type": "Application/json",
+  //     },
+  //   });
+  //   result = await result.json();
+  //   if (result) {
+  //     navigate("/");
+  //   }
+  // };
 
   return (
     <div className="product">
@@ -81,7 +82,10 @@ const UpdateProduct = () => {
         }}
       />
 
-      <button onClick={updateProduct} className="appButton">
+      <button
+        // onClick={updateProduct}
+        className="appButton"
+      >
         Update Product
       </button>
     </div>
