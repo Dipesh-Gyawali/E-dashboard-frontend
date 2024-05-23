@@ -1,5 +1,5 @@
 import React from "react";
-import { compileAsync } from "sass";
+import { useParams, useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
   const [name, setName] = React.useState("");
@@ -7,6 +7,7 @@ const AddProduct = () => {
   const [category, setCategory] = React.useState("");
   const [company, setCompnay] = React.useState("");
   const [error, setError] = React.useState(false);
+  const navigate = useNavigate();
 
   const addProduct = async () => {
     if (!name || !price || !company || !category) {
@@ -24,6 +25,9 @@ const AddProduct = () => {
     });
     result = await result.json();
     console.warn(result);
+    if (result) {
+      navigate("/");
+    }
   };
 
   return (
