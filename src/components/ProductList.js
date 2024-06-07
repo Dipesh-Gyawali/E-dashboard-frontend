@@ -9,12 +9,11 @@ export const ProductList = () => {
   }, []);
 
   const getProducts = async () => {
-    let result = await fetch("http://localhost:5000/products");
-    // , {
-    //   headers: {
-    //     authorization: JSON.parse(localStorage.getItem("token")),
-    //   },
-    // });
+    let result = await fetch("http://localhost:5000/products", {
+      headers: {
+        authorization: ` bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    });
     result = await result.json();
     setProducts(result);
     console.log(result, "rrrrrrrrrrrrr");
@@ -24,9 +23,28 @@ export const ProductList = () => {
     console.warn(id);
     let result = await fetch(`http://localhost:5000/product/${id}`, {
       method: "Delete",
+      headers: {
+        authorization: ` bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
     });
     result = await result.json();
     if (result) {
+      getProducts();
+    }
+  };
+  const searchHandle = async (event) => {
+    let key = event.target.value;
+    if (key) {
+      let result = await fetch(`http://localhost:5000/search/${key}`, {
+        headers: {
+          authorization: ` bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
+      });
+      result = await result.json();
+      if (result) {
+        setProducts(result);
+      }
+    } else {
       getProducts();
     }
   };
@@ -38,7 +56,7 @@ export const ProductList = () => {
         type=""
         className="search-product-box"
         placeholder="Search Product"
-        // onChange={searchHandle}
+        onChange={searchHandle}
       />
       <ul>
         <li>S. No.</li>
@@ -66,17 +84,3 @@ export const ProductList = () => {
     </div>
   );
 };
-
-//     const searchHandle = async (event)=>{
-//         let key = event.target.value;
-//         if(key){
-//             let result = await fetch(`http://localhost:5000/search/${key}`);
-//             result = await result.json()
-//             if(result){
-//                 setProducts(result)
-//             }
-//         }else{
-//             getProducts();
-//         }
-
-//     }
